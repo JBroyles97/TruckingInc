@@ -17,10 +17,10 @@ $viewHistoryExecute = @mysqli_query($dbc, $viewHistoryQuery);
 
 // ********************** Add Product Purchase Records *************************
 // --- Pull data from form ---
-$costPerUnit = $_POST['CostPerUnit']; $costPerUnit = htmlentities($costPerUnit);
-$quantity = $_POST['Quantity']; $quantity = htmlentities($quantity);
-$vendorName = $_POST['SelectVendor']; $vendorName = htmlentities($vendorName);
-$productName = $_POST['SelectProduct']; $productName = htmlentities($productName);
+$costPerUnit = trim(htmlentities(mysqli_real_escape_string($dbc, $_POST['CostPerUnit'])));
+$quantity = trim(htmlentities(mysqli_real_escape_string($dbc, $_POST['Quantity'])));
+$vendorName = trim(htmlentities(mysqli_real_escape_string($dbc, $_POST['SelectVendor'])));
+$productName = trim(htmlentities(mysqli_real_escape_string($dbc, $_POST['SelectProduct'])));
 
 // --- Product Name ---
 $productNameQuery = "SELECT lumberType FROM Product";
@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   {
     if (empty($productID) || empty($vendorID) || empty($costPerUnit) || empty($totalCost) || empty($quantity))
     {
-      echo '<form action="EmployeeResuply.php">';
+      echo '<form action="EmployeeResupply.php">';
       echo "Product ID: " . $productID . " " . gettype($productID) . " ";
       echo "Vendor ID: " . $vendorID . " " . gettype($vendorID) . " ";
       echo "Cost per: " . $costPerUnit . " " . gettype($costPerUnit) . " ";
@@ -63,13 +63,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     }
     else
     {
-        $addRecordQuery = 'INSERT INTO ProductPurchase (productID, vendorID, costPerUnit, totalCost, quantity)
+        $addRecordQuery = 'INSERT INTO ProductPurchase (productID, vendorID, costBoughtPerUnit, totalCost, quantity)
         VALUES (' . $productID . ', ' . $vendorID . ', ' . $costPerUnit . ', ' . $totalCost . ', ' . $quantity . ');';
         $addRecordExecute = @mysqli_query($dbc, $addRecordQuery) or die(mysqli_error($dbc));
 
         if ($addRecordExecute)
         {
-            header('Location: EmployeeResuply.php');
+            header('Location: EmployeeResupply.php');
 
             // Update numInStock in Product table (for selected product)
             // Retrieve current stock

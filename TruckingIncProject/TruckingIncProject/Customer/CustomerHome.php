@@ -7,14 +7,17 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<title>Customer Home</title>
+	<title>Customer Home </title>
 	<meta charset="utf-8"/>
+	<link rel="stylesheet" type="text/css" href="../Styles.css">
 </head>
 <body>
+	<div id="banner">
+		<img src="../Pictures/TruckingIncLogo.png" alt="Logo" id= "logo">
+	</div>
 	<div class="Div">
-		<a href="CustomerCreateOrder.php">New Order</a></br>
-		<a href="CustomerOrderHistory.php">Order History</a></br>
-		<a href="CustomerAccount.php">My Account</a></br>
+		<a href="CustomerAccount.php">My Account</a>
+		<a href="CustomerCreateOrder.php">New Order</a>
 		<a href="../TruckingIncHome.php">Website Home</a>
 	</div>
 	<form action="CustomerHomeHelper.php" method="post" class="Form">
